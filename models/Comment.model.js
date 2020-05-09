@@ -7,10 +7,10 @@ const commentSchema = new Schema(
     // firstName: {type: String, require: true}
     // title: String,
 
-    author: { type: Schema.Types.ObjectId, ref: "User" },
+    author: {type: String, default: 'Guest'},
     comment: String,
-    giphy: String,
-    //blog: { type: Schema.Types.ObjectId, ref: "blogPost" }
+    // future feature -> giphy: String,
+    blog: String,
   },
   {
     timestamps: true,

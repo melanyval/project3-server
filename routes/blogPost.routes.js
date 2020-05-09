@@ -6,6 +6,7 @@ const blogPostRouter = express.Router();
 
 // ********* require blogPost model
 const BlogPost = require("../models/blogPost.model");
+const Comment = require("../models/comment.model");
 
 // ****************************************************************************************
 // POST route to create a new
@@ -14,8 +15,7 @@ const BlogPost = require("../models/blogPost.model");
 // <form action="/authors" method="POST">
 blogPostRouter.post("/api/blogPost", (req, res, next) => {
   console.log(req.body);
-  BlogPost
-    .create(req.body)
+  BlogPost.create(req.body)
     .then((blogPostDoc) => res.status(200).json(blogPostDoc))
     .catch((err) => next(err));
 });
@@ -25,16 +25,24 @@ blogPostRouter.post("/api/blogPost", (req, res, next) => {
 // ****************************************************************************************
 
 blogPostRouter.get("/api/blogPost", (req, res, next) => {
-  BlogPost
-    .find() // <-- .find() method gives us always an ARRAY back
+  BlogPost.find() // <-- .find() method gives us always an ARRAY back
     .then((blogPostFromDB) => res.status(200).json({ blogs: blogPostFromDB }))
     .catch((err) => next(err));
 });
 
 blogPostRouter.get("/api/singleBlogPost/:id", (req, res, next) => {
-  BlogPost
-    .findById(req.params.id) // <-- .find() method gives us always an ARRAY back
-    .then((blogPostFromDB) => res.status(200).json({ blogs: blogPostFromDB }))
+  BlogPost.findById(req.params.id) // <-- .find() method gives us always an ARRAY back
+    .then((blogPostFromDB) => {
+      console.log(req.params.id);
+      Comment.find({ blog: req.params.id })
+        .then((commentFromDB) => {
+          console.log(commentFromDB);
+          res
+            .status(200)
+            .json({ blogs: blogPostFromDB, comments: commentFromDB });
+        })
+        .catch((err) => next(err));
+    })
     .catch((err) => next(err));
 });
 

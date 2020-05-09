@@ -10,7 +10,7 @@ const blogPostSchema = new Schema(
     body: String,
     pictureUrl: String,
     author: { type: Schema.Types.ObjectId, ref: "User" },
-    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
+    // comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {
     // keeps record when is created and updated
