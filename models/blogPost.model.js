@@ -9,7 +9,7 @@ const blogPostSchema = new Schema(
     title: String,
     body: String,
     pictureUrl: String,
-    author: { type: Schema.Types.ObjectId, ref: "User" },
+    author: String,
     // comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }],
   },
   {

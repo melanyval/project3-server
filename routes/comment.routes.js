@@ -17,8 +17,14 @@ const Comment = require("../models/comment.model");
 commentRouter.post("/api/comment", (req, res, next) => {
   console.log(req.body);
   console.log(req.user);
+  let username;
+  if (req.user) {
+    username = req.user.username;
+  } else {
+    username = "Guest"
+  }
   Comment.create({
-    author: req.user.username,
+    author: username,
     comment: req.body.comment,
     blog: req.body.blog,
   })
