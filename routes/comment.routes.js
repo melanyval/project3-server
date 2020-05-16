@@ -7,7 +7,7 @@ const passport = require("passport");
 const User = require("../models/User.model");
 
 // ********* require blogPost model
-const Comment = require("../models/comment.model");
+const Comment = require("../models/Comment.model");
 
 // ****************************************************************************************
 // POST route to create a new
@@ -21,7 +21,7 @@ commentRouter.post("/api/comment", (req, res, next) => {
   if (req.user) {
     username = req.user.username;
   } else {
-    username = "Guest"
+    username = "Guest";
   }
   Comment.create({
     author: username,

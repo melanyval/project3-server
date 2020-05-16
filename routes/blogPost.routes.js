@@ -6,7 +6,7 @@ const blogPostRouter = express.Router();
 
 // ********* require blogPost model
 const BlogPost = require("../models/blogPost.model");
-const Comment = require("../models/comment.model");
+const Comment = require("../models/Comment.model");
 
 // ****************************************************************************************
 // POST route to create a new
