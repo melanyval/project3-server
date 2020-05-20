@@ -39,6 +39,8 @@ router.post("/api/signup", (req, res, next) => {
         username,
         email,
         passwordHash: hashedPassword,
+        location: "",
+        bio: ""
       })
         .then((user) => {
           // user.passwordHash = undefined;
@@ -106,5 +108,25 @@ router.get("/api/isLoggedIn", (req, res) => {
   }
   res.status(401).json({ message: "Unauthorized access!" });
 });
+
+router.post("/api/deleteAccount", (req, res, next) => {
+  console.log(req.body);
+  User.findByIdAndRemove(req.user._id)
+    .then((success) => res.status(200).json(success))
+    .catch((err) => next(err));
+});
+
+router.post("/api/updateProfile/:id", (req, res, next) => {
+  console.log(req.user)
+  User.findByIdAndUpdate(req.params.id, req.body)
+  .then((updatedUser) => {
+    console.log(updatedUser)
+    res.status(200).json(updatedUser);
+  })
+  .catch((err) => {
+    next(err);
+  })
+})
+
 
 module.exports = router;

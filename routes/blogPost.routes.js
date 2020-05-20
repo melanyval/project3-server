@@ -3,10 +3,11 @@
 
 const express = require("express");
 const blogPostRouter = express.Router();
+const passport = require("passport");
 
 // ********* require blogPost model
 const BlogPost = require("../models/blogPost.model");
-const Comment = require("../models/Comment.model");
+const Comment = require("../models/comment.model");
 
 // ****************************************************************************************
 // POST route to create a new
@@ -33,6 +34,7 @@ blogPostRouter.get("/api/blogPost", (req, res, next) => {
 blogPostRouter.get("/api/singleBlogPost/:id", (req, res, next) => {
   BlogPost.findById(req.params.id) // <-- .find() method gives us always an ARRAY back
     .then((blogPostFromDB) => {
+      console.log(req.user);
       console.log(req.params.id);
       Comment.find({ blog: req.params.id })
         .then((commentFromDB) => {
