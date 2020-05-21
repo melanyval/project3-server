@@ -7,7 +7,7 @@ const commentSchema = new Schema(
     // firstName: {type: String, require: true}
     // title: String,
 
-    author: {type: String, default: 'Guest'},
+    author: { type: String, default: "Guest" },
     comment: String,
     // future feature -> giphy: String,
     blog: String,
