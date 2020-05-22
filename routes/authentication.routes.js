@@ -119,15 +119,15 @@ router.post("/api/deleteAccount", (req, res, next) => {
 
 router.post(
   "/api/updateProfile/:id",
-  uploadCloud.single("image"),
+  //uploadCloud.single("image"),
   (req, res, next) => {
-    if (!req.file.url) {
+    /*if (!req.file.url) {
       res.status(401).json({
         message:
           "Did you select the right path? Sorry, I can't update your image.",
       });
       return;
-    }
+    }*/
     console.log(req.user);
     User.findByIdAndUpdate(req.params.id, req.body)
       .then((updatedUser) => {
