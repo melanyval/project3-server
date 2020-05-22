@@ -35,10 +35,10 @@ blogPostRouter.get("/api/singleBlogPost/:id", (req, res, next) => {
   BlogPost.findById(req.params.id) // <-- .find() method gives us always an ARRAY back
     .then((blogPostFromDB) => {
       console.log(req.user);
-      console.log(req.params.id);
+      // console.log(req.params.id);
       Comment.find({ blog: req.params.id })
         .then((commentFromDB) => {
-          console.log(commentFromDB);
+          // console.log(commentFromDB);
           res
             .status(200)
             .json({ blogs: blogPostFromDB, comments: commentFromDB });

@@ -17,7 +17,7 @@ const Comment = require("../models/Comment.model");
 commentRouter.post("/api/comment", (req, res, next) => {
   console.log(req.body);
   console.log(req.user);
-  let username;
+  let username;// = req.user?.username || 'Guest';
   if (req.user) {
     username = req.user.username;
   } else {
