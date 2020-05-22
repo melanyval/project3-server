@@ -27,11 +27,16 @@ const userSchema = new Schema(
       default: "User",
     },
     location: {
-      type: String
+      type: String,
     },
     bio: {
-      type: String
-    }
+      type: String,
+    },
+    imgUrl: {
+      type: String,
+      default:
+        "https://cdn2.iconfinder.com/data/icons/random-outline-3/48/random_14-512.png",
+    },
   },
   {
     timestamps: true,

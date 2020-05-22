@@ -7,6 +7,7 @@ const mongoose = require("mongoose");
 const saltRounds = 10;
 const passport = require("passport");
 const User = require("../models/User.model");
+const uploadCloud = require("../configs/cloudinary");
 
 const routeGuard = require("../configs/route-guard.config");
 
@@ -40,7 +41,7 @@ router.post("/api/signup", (req, res, next) => {
         email,
         passwordHash: hashedPassword,
         location: "",
-        bio: ""
+        bio: "",
       })
         .then((user) => {
           // user.passwordHash = undefined;
@@ -116,17 +117,27 @@ router.post("/api/deleteAccount", (req, res, next) => {
     .catch((err) => next(err));
 });
 
-router.post("/api/updateProfile/:id", (req, res, next) => {
-  console.log(req.user)
-  User.findByIdAndUpdate(req.params.id, req.body)
-  .then((updatedUser) => {
-    console.log(updatedUser)
-    res.status(200).json(updatedUser);
-  })
-  .catch((err) => {
-    next(err);
-  })
-})
-
+router.post(
+  "/api/updateProfile/:id",
+  uploadCloud.single("image"),
+  (req, res, next) => {
+    if (!req.file.url) {
+      res.status(401).json({
+        message:
+          "Did you select the right path? Sorry, I can't update your image.",
+      });
+      return;
+    }
+    console.log(req.user);
+    User.findByIdAndUpdate(req.params.id, req.body)
+      .then((updatedUser) => {
+        console.log(updatedUser);
+        res.status(200).json(updatedUser);
+      })
+      .catch((err) => {
+        next(err);
+      });
+  }
+);
 
 module.exports = router;
